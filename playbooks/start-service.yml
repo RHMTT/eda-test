@@ -1,0 +1,10 @@
+---
+- name: Playbook to start chrony service
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+    - name: service start task
+      ansible.builtin.service:
+        name: chrony
+        state: started
