@@ -1,0 +1,22 @@
+---
+- name: Automatic Remediation of a webserver
+  hosts: localhost
+  sources:
+    - name: listen for alerts
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: service is stopped
+      condition: event.alert.labels.name == "chrony.service" and event.alert.status == "firing"
+      action:
+        run_playbook:
+          name: service-start.yml 
+
+
+    - name: Server is down
+      condition: event.alert.labels.alertname == "InstanceDown" and event.alert.status == "firing"
+      action:
+        debug:
+          msg: The system is down
+   
