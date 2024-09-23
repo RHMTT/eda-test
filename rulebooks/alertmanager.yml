@@ -10,8 +10,9 @@
     - name: service is stopped
       condition: event.alert.labels.name == "chrony.service" and event.alert.status == "firing"
       action:
-        run_playbook:
-          name: service-start.yml 
+        run_job_template:
+          name: service-start
+          organization: Default
 
 
     - name: Server is down
