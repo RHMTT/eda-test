@@ -7,8 +7,12 @@
   tasks:
     - debug:
         msg: "Website is down!"
-
-    - name: Replace website
+    - name: ensure Apache is installed
+      ansible.builtin.package:
+        name: apache2
+        state: present
+        
+    - name: install website documents
       ansible.builtin.copy:
        src: index.html
        dest: /var/www/html/
@@ -20,4 +24,5 @@
       ansible.builtin.service:
         name: apache2
         state: started
+        enabled: true
       
