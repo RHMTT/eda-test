@@ -10,11 +10,10 @@
 
     - name: Replace website
       ansible.builtin.copy:
-       remote_src: yes
-       src: /tmp/index.html
+       src: index.html
        dest: /var/www/html/
-       owner: apache
-       group: apache
+       owner: root
+       group: root
        mode: '0644'
        
     - name: Restart Apache
