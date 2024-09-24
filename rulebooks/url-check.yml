@@ -1,0 +1,17 @@
+---
+- name: Listen for events on a webhook
+  hosts: web
+  ## Define our source for events
+  sources:
+     - ansible.eda.url_check:
+        urls:
+          - http://webserver
+        delay: 10
+
+  rules:
+    - name: Web site is down
+      condition: event.url_check.status == "down"
+    ## Define the action we should take should the condition be met  
+      action:
+        run_playbook:
+          name: fix_web.yml
